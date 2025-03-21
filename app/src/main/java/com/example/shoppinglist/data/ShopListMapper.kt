@@ -1,6 +1,7 @@
 package com.example.shoppinglist.data
 
 import com.example.shoppinglist.domain.ShopItem
+import java.util.List
 
 class ShopListMapper {
 
@@ -18,7 +19,7 @@ class ShopListMapper {
         enable = shopItemDbModel.enable
     )
 
-    fun mapListDbModelToListEntity(list: List<ShopItemDbModel>) = list.map {
+    fun mapListDbModelToListEntity(list: @JvmSuppressWildcards List<ShopItemDbModel>) = list.map {
         mapDbModelToEntity(it)
     }
 }
