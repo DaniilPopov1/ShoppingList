@@ -2,38 +2,40 @@ package com.example.shoppinglist.data.mapper
 
 import com.example.shoppinglist.data.database.model.CryptoItemDbModel
 import com.example.shoppinglist.data.network.model.CryptoItemDto
-import com.example.shoppinglist.domain.CryptoItem
+import com.example.shoppinglist.domain.model.CryptoItem
 
-class CryptoMapper {
-    fun mapDtoToDbModel(dto: CryptoItemDto) = CryptoItemDbModel(
-        id = dto.id,
-        name = dto.name,
-        symbol = dto.symbol,
-        currentPrice = dto.current_price,
-        imageUrl = dto.image,
-        marketCap = dto.market_cap,
-        marketCapRank = dto.market_cap_rank,
-        totalVolume = dto.total_volume,
-        high24h = dto.high_24h,
-        low24h = dto.low_24h,
-        priceChange24h = dto.price_change_24h,
-        priceChangePercentage24h = dto.price_change_percentage_24h,
-        lastUpdated = dto.last_updated
+fun CryptoItemDto.toCryptoItemDbModel(): CryptoItemDbModel {
+    return CryptoItemDbModel(
+        id = this.id,
+        name = this.name,
+        symbol = this.symbol,
+        currentPrice = this.current_price,
+        imageUrl = this.image,
+        marketCap = this.market_cap,
+        marketCapRank = this.market_cap_rank,
+        totalVolume = this.total_volume,
+        high24h = this.high_24h,
+        low24h = this.low_24h,
+        priceChange24h = this.price_change_24h,
+        priceChangePercentage24h = this.price_change_percentage_24h,
+        lastUpdated = this.last_updated
     )
+}
 
-    fun mapDbModelToEntity(dbModel: CryptoItemDbModel) = CryptoItem(
-        id = dbModel.id,
-        name = dbModel.name,
-        symbol = dbModel.symbol,
-        currentPrice = dbModel.currentPrice,
-        imageUrl = dbModel.imageUrl,
-        marketCap = dbModel.marketCap,
-        marketCapRank = dbModel.marketCapRank,
-        totalVolume = dbModel.totalVolume,
-        high24h = dbModel.high24h,
-        low24h = dbModel.low24h,
-        priceChange24h = dbModel.priceChange24h,
-        priceChangePercentage24h = dbModel.priceChangePercentage24h,
-        lastUpdated = dbModel.lastUpdated
+fun CryptoItemDbModel.toCryptoItem(): CryptoItem{
+    return CryptoItem(
+        id = this.id,
+        name = this.name,
+        symbol = this.symbol,
+        currentPrice = this.currentPrice,
+        imageUrl = this.imageUrl,
+        marketCap = this.marketCap,
+        marketCapRank = this.marketCapRank,
+        totalVolume = this.totalVolume,
+        high24h = this.high24h,
+        low24h = this.low24h,
+        priceChange24h = this.priceChange24h,
+        priceChangePercentage24h = this.priceChangePercentage24h,
+        lastUpdated = this.lastUpdated
     )
 }
