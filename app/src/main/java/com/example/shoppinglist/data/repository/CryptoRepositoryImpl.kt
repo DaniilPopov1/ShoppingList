@@ -1,6 +1,6 @@
 package com.example.shoppinglist.data.repository
 
-import android.app.Application
+import android.content.Context
 import com.example.shoppinglist.data.database.AppDatabase
 import com.example.shoppinglist.data.mapper.toCryptoItem
 import com.example.shoppinglist.data.mapper.toCryptoItemDbModel
@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CryptoRepositoryImpl(
-    private val application: Application
+    private val context: Context
 ): CryptoRepository {
 
     private val apiService = ApiFactory.apiService
-    private val cryptoDao = AppDatabase.getInstance(application).cryptoInfoDao()
+    private val cryptoDao = AppDatabase.getInstance(context).cryptoInfoDao()
 
     override fun getCryptoList(): Flow<List<CryptoItem>> {
         return cryptoDao.getCryptoList().map { list ->

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class CryptoListViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repository = CryptoRepositoryImpl(application)
+    private val repository = CryptoRepositoryImpl(application.applicationContext)
     private val loadDataUseCase = LoadDataUseCase(repository)
     private val getCryptoListUseCase = GetCryptoListUseCase(repository)
     private val getCryptoItemUseCase = GetCryptoItemUseCase(repository)

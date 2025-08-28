@@ -66,6 +66,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:<1.10.1>")
     debugImplementation("androidx.compose.ui:ui-tooling:<1.10.1>")
 
+    implementation("com.google.dagger:dagger:2.57.1")
+    ksp("com.google.dagger:dagger-compiler:2.57.1")
+
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
