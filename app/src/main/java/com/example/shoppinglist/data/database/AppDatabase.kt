@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import com.example.shoppinglist.data.database.model.CryptoItemDbModel
 
-@Database(entities = [CryptoItemDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [CryptoItemDbModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     companion object{
 

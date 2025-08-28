@@ -8,6 +8,9 @@ import com.example.shoppinglist.domain.usecase.GetCryptoItemUseCase
 import com.example.shoppinglist.domain.usecase.GetCryptoListUseCase
 import com.example.shoppinglist.domain.usecase.LoadDataUseCase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
 
 class CryptoListViewModel(application: Application): AndroidViewModel(application) {
 
@@ -16,12 +19,26 @@ class CryptoListViewModel(application: Application): AndroidViewModel(applicatio
     private val getCryptoListUseCase = GetCryptoListUseCase(repository)
     private val getCryptoItemUseCase = GetCryptoItemUseCase(repository)
 
-    val cryptoList = getCryptoListUseCase()
+    private val _cryptoListState = MutableStateFlow<CryptoListState>(CryptoListState.Loading)
+    val cryptoListState: StateFlow<CryptoListState> = _cryptoListState
+
 
     fun getCryptoItem(id: String) = getCryptoItemUseCase(id)
     init{
         viewModelScope.launch {
-            loadDataUseCase()
+            try {
+                launch { loadDataUseCase() }
+
+                getCryptoListUseCase().collect { list ->
+                    if (list.isEmpty()) {
+                        _cryptoListState.value = CryptoListState.Loading
+                    } else {
+                        _cryptoListState.value = CryptoListState.Success(list)
+                    }
+                }
+            } catch (e: Exception) {
+                _cryptoListState.value = CryptoListState.Error(e.message ?: "Ошибка")
+            }
         }
     }
 }
