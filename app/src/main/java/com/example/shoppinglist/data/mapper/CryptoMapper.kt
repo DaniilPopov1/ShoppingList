@@ -9,16 +9,16 @@ fun CryptoItemDto.toCryptoItemDbModel(): CryptoItemDbModel {
         id = this.id,
         name = this.name,
         symbol = this.symbol,
-        currentPrice = this.current_price,
+        currentPrice = this.currentPrice,
         imageUrl = this.image,
-        marketCap = this.market_cap,
-        marketCapRank = this.market_cap_rank,
-        totalVolume = this.total_volume,
-        high24h = this.high_24h,
-        low24h = this.low_24h,
-        priceChange24h = this.price_change_24h,
-        priceChangePercentage24h = this.price_change_percentage_24h,
-        lastUpdated = this.last_updated
+        marketCap = this.marketCap,
+        marketCapRank = this.marketCapRank,
+        totalVolume = this.totalVolume,
+        high24h = this.high24h,
+        low24h = this.low24h,
+        priceChange24h = this.priceChange24h,
+        priceChangePercentage24h = this.priceChangePercentage24h,
+        lastUpdated = this.lastUpdated
     )
 }
 

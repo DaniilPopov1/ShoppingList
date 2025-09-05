@@ -12,26 +12,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shoppinglist.presentation.navigation.AppRoutes
 import com.example.shoppinglist.presentation.ui.cryptolist.components.CryptoItem
-import com.example.shoppinglist.presentation.ui.cryptolist.viewmodel.CryptoListState
 import com.example.shoppinglist.presentation.ui.cryptolist.viewmodel.CryptoListViewModel
+import com.example.shoppinglist.presentation.ui.cryptolist.viewmodel.ScreenState
 
 @Composable
 fun CryptoListScreen(navController: NavController,
                      vm: CryptoListViewModel = viewModel()){
     val state by vm.cryptoListState.collectAsState()
 
-    when (state) {
-        is CryptoListState.Loading -> {
+    when (state.screenState) {
+        ScreenState.LOADING -> {
             Text("Загрузка...")
         }
 
-        is CryptoListState.Error -> {
-            Text("Ошибка: ${(state as CryptoListState.Error).message}")
+        ScreenState.ERROR -> {
+            Text("Ошибка: ${state.errorMessage}")
         }
 
-        is CryptoListState.Success -> {
+        ScreenState.SUCCESS -> {
             LazyColumn(Modifier.fillMaxWidth()) {
-                items((state as CryptoListState.Success).list) { crypto ->
+                items((state.cryptoList)) { crypto ->
                     CryptoItem(crypto) {
                         navController.navigate(AppRoutes.Detail.route.replace("{cryptoId}", crypto.id))
                     }
