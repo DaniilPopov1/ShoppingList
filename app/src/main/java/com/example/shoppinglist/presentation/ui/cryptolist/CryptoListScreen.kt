@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shoppinglist.presentation.navigation.AppRoutes
@@ -22,15 +23,23 @@ fun CryptoListScreen(navController: NavController,
 
     when (state.screenState) {
         ScreenState.LOADING -> {
-            Text("Загрузка...")
+            Text(
+                text = "Загрузка...",
+                fontSize = 16.sp
+            )
         }
 
         ScreenState.ERROR -> {
-            Text("Ошибка: ${state.errorMessage}")
+            Text(
+                text = "Ошибка: ${state.errorMessage}",
+                fontSize = 16.sp
+            )
         }
 
         ScreenState.SUCCESS -> {
-            LazyColumn(Modifier.fillMaxWidth()) {
+            LazyColumn(
+                Modifier.fillMaxWidth()
+            ) {
                 items((state.cryptoList)) { crypto ->
                     CryptoItem(crypto) {
                         navController.navigate(AppRoutes.Detail.route.replace("{cryptoId}", crypto.id))

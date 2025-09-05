@@ -37,9 +37,18 @@ fun CryptoItem(crypto: CryptoItem, onClick: () -> Unit){
 
             )
             Column() {
-                Text(crypto.name, fontSize = 22.sp)
-                Text("Стоимость: ${crypto.currentPrice} $", fontSize = 16.sp)
-                Text("Процент изменения цены: ${crypto.priceChangePercentage24h} %", fontSize = 16.sp)
+                Text(
+                    text = crypto.name,
+                    fontSize = 22.sp
+                )
+                Text(
+                    text = "Стоимость: ${crypto.currentPrice} $",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "Процент изменения цены: ${crypto.priceChangePercentage24h} %",
+                    fontSize = 16.sp
+                )
             }
         }
     }
