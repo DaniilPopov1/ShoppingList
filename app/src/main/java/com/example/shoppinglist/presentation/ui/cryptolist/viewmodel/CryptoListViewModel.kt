@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppinglist.data.repository.CryptoRepositoryImpl
+import com.example.shoppinglist.domain.model.CryptoResult
 import com.example.shoppinglist.domain.usecase.GetCryptoListUseCase
 import com.example.shoppinglist.domain.usecase.LoadDataUseCase
 import kotlinx.coroutines.launch
@@ -25,31 +26,34 @@ class CryptoListViewModel(application: Application): AndroidViewModel(applicatio
 
     init{
         viewModelScope.launch {
-            try {
-                launch { loadDataUseCase() }
+            launch { loadDataUseCase() }
 
-                getCryptoListUseCase().collect { list ->
-                    if (list.isEmpty()) {
-                        _cryptoListState.update { state ->
-                            state.copy(screenState = ScreenState.LOADING)
-                        }
-                    } else {
+            getCryptoListUseCase().collect { result ->
+                when (result) {
+                    is CryptoResult.Success -> {
                         _cryptoListState.update { state ->
                             state.copy(
                                 screenState = ScreenState.SUCCESS,
-                                cryptoList = list
+                                cryptoList = result.data)
+                        }
+                    }
+                    is CryptoResult.Error -> {
+                        _cryptoListState.update { state ->
+                            state.copy(
+                                screenState = ScreenState.ERROR,
+                                errorMessage = result.message
                             )
                         }
                     }
                 }
-            } catch (e: Exception) {
-                _cryptoListState.update { state ->
-                    state.copy(
-                        screenState = ScreenState.ERROR,
-                        errorMessage = e.message ?: "Ошибка"
-                    )
-                }
             }
+        }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            _cryptoListState.update { it.copy(screenState = ScreenState.LOADING) }
+            repository.refreshData()
         }
     }
 }
