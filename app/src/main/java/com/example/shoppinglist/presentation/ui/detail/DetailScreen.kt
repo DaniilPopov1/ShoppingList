@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.shoppinglist.presentation.ui.cryptolist.viewmodel.ScreenState
@@ -24,7 +25,10 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Composable
-fun DetailScreen(cryptoId: String?, vm: DetailViewModel = viewModel()) {
+fun DetailScreen(cryptoId: String?,
+                 factory: ViewModelProvider.Factory) {
+
+    val vm: DetailViewModel = viewModel(factory = factory)
 
     LaunchedEffect(cryptoId) {
         cryptoId?.let {

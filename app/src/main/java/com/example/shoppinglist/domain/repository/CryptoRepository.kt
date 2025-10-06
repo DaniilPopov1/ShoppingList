@@ -6,9 +6,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface CryptoRepository {
 
+    //val getCryptoList: Flow<CryptoResult>
     fun getCryptoList(): Flow<CryptoResult>
 
     fun getCryptoItem(id: String): Flow<CryptoItem>
 
     suspend fun loadData()
+
+    suspend fun refreshData()
 }

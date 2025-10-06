@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shoppinglist.presentation.navigation.AppRoutes
@@ -30,7 +31,8 @@ import com.example.shoppinglist.presentation.ui.cryptolist.viewmodel.ScreenState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CryptoListScreen(navController: NavController,
-                     vm: CryptoListViewModel = viewModel()){
+                     factory: ViewModelProvider.Factory){
+    val vm: CryptoListViewModel = viewModel( factory = factory)
     val state by vm.cryptoListState.collectAsState()
 
     PullToRefreshBox(
